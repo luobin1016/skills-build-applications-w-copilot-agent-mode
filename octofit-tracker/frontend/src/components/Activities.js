@@ -4,7 +4,11 @@ const Activities = () => {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    const endpoint = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/activities/`;
+    const codespaceName = process.env.REACT_APP_CODESPACE_NAME;
+    const baseUrl = codespaceName
+      ? `https://${codespaceName}-8000.app.github.dev`
+      : (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000');
+    const endpoint = `${baseUrl}/api/activities/`;
     console.log('Fetching Activities from:', endpoint);
     fetch(endpoint)
       .then(res => res.json())
