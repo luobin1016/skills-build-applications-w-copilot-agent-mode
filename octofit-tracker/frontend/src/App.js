@@ -1,9 +1,11 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import logo from '../../docs/octofitapp-small.png';
 
 function App() {
   return (
     <Router>
       <div className="container mt-4">
-          import logo from '../../docs/octofitapp-small.png';
           <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4 rounded">
             <Link className="navbar-brand d-flex align-items-center" to="/">
               <img src={logo} alt="Octofit Logo" className="App-logo me-2" />
@@ -48,5 +50,11 @@ function App() {
     </Router>
   );
 }
+
+const Activities = () => <div>Activities Page</div>;
+const Leaderboard = () => <div>Leaderboard Page</div>;
+const Teams = () => <div>Teams Page</div>;
+const Users = () => <div>Users Page</div>;
+const Workouts = () => <div>Workouts Page</div>;
 
 export default App;
