@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,19 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ed)1cx!1!jz)z(qjkio)+ksz)^1pp&d*^bv#^gtmrceizyx)_s'
+# Load from environment in production; the default is for local development only.
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key-change-me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Controlled via environment variable; defaults to True for local development.
+DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
-DEBUG = True
-
-# 支持codespace和localhost
-import os
-codespace_name = os.environ.get('CODESPACE_NAME', None)
-if codespace_name:
-    ALLOWED_HOSTS = [f'{codespace_name}-8000.app.github.dev', 'localhost', '127.0.0.1']
-else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# ALLOWED_HOSTS configuration supporting Codespaces and localhost
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if os.environ.get('CODESPACE_NAME'):
+    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
 
 
 # Application definition
